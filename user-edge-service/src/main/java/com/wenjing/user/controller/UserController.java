@@ -1,7 +1,7 @@
 package com.wenjing.user.controller;
 
 import com.wenjing.thrift.user.UserInfo;
-import com.wenjing.user.dto.UserDTO;
+import com.wenjing.thrift.user.dto.UserDTO;
 import com.wenjing.user.redis.RedisClient;
 import com.wenjing.user.reponse.LoginResponse;
 import com.wenjing.user.reponse.Response;
@@ -11,12 +11,8 @@ import org.apache.thrift.TException;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -24,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -31,6 +28,11 @@ public class UserController {
 
     @Autowired
     private RedisClient redisClient;
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "/login";
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -86,7 +88,7 @@ public class UserController {
         return Response.SUCCESS;
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public Response register(@RequestParam("username") String username,
                              @RequestParam("password") String password,
@@ -121,6 +123,12 @@ public class UserController {
             return Response.exception(e);
         }
         return Response.SUCCESS;
+    }
+
+    @RequestMapping(value = "authentication", method = RequestMethod.POST)
+    @ResponseBody
+    public UserDTO authentication(@RequestHeader("token") String token) {
+        return redisClient.get(token);
     }
 
     private UserDTO toDTO(UserInfo userInfo) {

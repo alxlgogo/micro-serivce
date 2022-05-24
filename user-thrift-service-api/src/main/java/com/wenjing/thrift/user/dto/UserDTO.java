@@ -1,4 +1,4 @@
-package com.wenjing.user.dto;
+package com.wenjing.thrift.user.dto;
 
 import java.io.Serializable;
 

@@ -8,12 +8,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="user-thrift-service-api" />
         <module name="user-thrift-service" />
+        <module name="user-edge-service" />
+        <module name="user-edge-service-client" />
         <module name="message-thrift-service-api" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="user-edge-service" options="-parameters" />
       <module name="user-thrift-service" options="-parameters" />
     </option>
   </component>
