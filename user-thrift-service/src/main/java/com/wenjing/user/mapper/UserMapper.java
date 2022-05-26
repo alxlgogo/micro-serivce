@@ -11,6 +11,11 @@ public interface UserMapper {
     @Select("select id,user_name as userName,password,real_name as realName,mobile,email from pe_user where id=#{id}")
     UserInfo getUserById(@Param("id") int id);
 
+    @Select("select u.id,u.user_name as userName,u.password,u.real_name as realName,u.mobile,u.email,t.intro,t.stars " +
+            "from db_user.pe_user as u,db_user.pe_teacher as t " +
+            "where u.id=#{id} and u.id=t.user_id;")
+    UserInfo getTeacherById(@Param("id") int id);
+
     @Select("select id,user_name as userName,password,real_name as realName,mobile,email from pe_user where user_name=#{username}")
     UserInfo getUserByName(@Param("username") String username);
 
