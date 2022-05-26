@@ -14,11 +14,13 @@
         <module name="user-edge-service-client" />
         <module name="message-thrift-service-api" />
         <module name="course-dubbo-service" />
+        <module name="api-gateway-zuul" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway-zuul" options="" />
       <module name="course-dubbo-service" options="-parameters" />
       <module name="course-edge-service" options="-parameters" />
       <module name="user-edge-service" options="-parameters" />
