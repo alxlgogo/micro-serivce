@@ -1,0 +1,5 @@
+From python:3.9-bullseye
+MAINTAINER Wenjing alxlgoog@gmail.com
+
+RUN pip install thrift
+RUN pip install docker-entrypoint
